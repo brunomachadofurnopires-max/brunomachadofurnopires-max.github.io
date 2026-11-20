@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0a111d">
+  <meta name="description" content="Portfólio de Bruno Machado Furno Pires, estudante de Engenharia Elétrica no IFES e estagiário de O&M na AXIA Energia (Eletrobras): automação, integração de sistemas, dados e engenharia de controle.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Bruno Machado — Portfólio de Projetos">
+  <meta property="og:description" content="Automação e dados para a operação do setor elétrico, pesquisa em processamento de sinais e projetos de engenharia de controle.">
+  <title>Bruno Machado — Automação, Dados & Engenharia</title>
+  <style>
+    :root {
+      --bg: #0a111d; --bg-2: #0e1726; --surface: #111e2d; --surface-2: #162435;
+      --line: rgba(176, 204, 233, .13); --line-strong: rgba(176, 204, 233, .23);
+      --text: #eff5fd; --muted: #9aaec5; --dim: #6f869e; --accent: #66e3d3;
+      --accent-deep: #173a3b; --blue: #7cb6ff; --orange: #f1b87e; --violet: #c7a4ff;
+      --radius: 20px; --shadow: 0 24px 90px rgba(0,0,0,.26);
+      --container: 1160px;
+    }
+    * {box-sizing:border-box}
+    html {scroll-behavior:smooth; scroll-padding-top:100px}
+    body {margin:0; background:var(--bg); color:var(--text); font: 16px/1.65 Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; -webkit-font-smoothing:antialiased}
+    a {color:inherit; text-decoration:none}
+    button {font:inherit}
+    ::selection{background:rgba(102,227,211,.28);color:#fff}
+    .skip {position:absolute;top:-60px;left:10px;z-index:200;padding:10px 18px;background:var(--accent);color:#0a111d;border-radius:8px}
+    .skip:focus{top:10px}
+    :focus-visible {outline:2px solid var(--accent); outline-offset:4px}
+    .container {width:min(calc(100% - 48px),var(--container));margin-inline:auto}
+    .ambient {position:absolute;z-index:0;top:-340px;right:-170px;width:900px;height:900px;pointer-events:none;background:radial-gradient(circle,rgba(45,142,149,.15) 0,rgba(55,86,159,.09) 35%,transparent 66%)}
+    .site-header{position:sticky;z-index:100;top:0;background:rgba(10,17,29,.83);border-bottom:1px solid var(--line);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+    .nav-wrap{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:28px}
+    .brand{display:flex;align-items:center;gap:13px;white-space:nowrap}
+    .brand-mark{display:grid;place-items:center;width:42px;height:42px;border:1px solid rgba(102,227,211,.38);border-radius:13px;background:linear-gradient(135deg,#193c43,#122534);color:var(--accent);font-weight:800;letter-spacing:-.06em}
+    .brand strong{display:block;font-size:14px;letter-spacing:.01em;line-height:1.2}
+    .brand small{display:block;font-size:11px;color:var(--muted);line-height:1.4;margin-top:2px;letter-spacing:.06em;text-transform:uppercase}
+    nav{display:flex;align-items:center;gap:30px}
+    nav a{font-size:13px;color:#bdcbe0;font-weight:600;transition:color .2s}
+    nav a:hover{color:var(--accent)}
+    .nav-cta{padding:10px 16px;border:1px solid var(--line-strong);border-radius:10px;color:var(--text);font-size:13px;font-weight:700;white-space:nowrap;transition:background .2s}
+    .nav-cta:hover{background:var(--surface-2)}
+    .hero{position:relative;overflow:hidden;padding:108px 0 103px;border-bottom:1px solid var(--line)}
+    .hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.18fr) minmax(350px,.82fr);gap:70px;align-items:center}
+    .eyebrow{display:inline-flex;gap:10px;align-items:center;color:var(--accent);font-weight:800;text-transform:uppercase;letter-spacing:.14em;font-size:11px}
+    .eyebrow:before{content:'';width:25px;height:1px;background:var(--accent)}
+    .hero h1{font-size:clamp(41px,5vw,64px);line-height:1.09;letter-spacing:-.055em;margin:22px 0 24px;font-weight:800;max-width:730px}
+    .gradient-text{background:linear-gradient(100deg,#a4f2df 0,#84c2ff 72%,#a9c8fd 100%);background-clip:text;-webkit-background-clip:text;color:transparent}
+    .lead{color:var(--muted);font-size:17px;max-width:630px;line-height:1.85;margin:0}
+    .lead strong{color:var(--text);font-weight:700}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:31px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:47px;padding:0 20px;border-radius:11px;font-weight:800;font-size:13px;border:1px solid transparent;transition:transform .2s, background .2s,border-color .2s;cursor:pointer}
+    .btn:hover{transform:translateY(-2px)}
+    .btn-primary{background:var(--accent);color:#09211f}
+    .btn-primary:hover{background:#9af4e7}
+    .btn-secondary{background:rgba(255,255,255,.025);border-color:var(--line-strong);color:#e8f3ff}
+    .btn-secondary:hover{border-color:rgba(102,227,211,.6);background:rgba(102,227,211,.08)}
+    .workflow-card{position:relative;background:linear-gradient(150deg,rgba(25,40,59,.93),rgba(12,24,37,.96));border:1px solid rgba(164,216,237,.2);border-radius:26px;padding:28px;box-shadow:var(--shadow);overflow:hidden}
+    .workflow-card:after{content:'';position:absolute;right:-70px;bottom:-170px;width:290px;height:290px;border-radius:50%;background:radial-gradient(circle,rgba(102,227,211,.1),transparent 65%);pointer-events:none}
+    .window-top{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:11px;letter-spacing:.08em;margin-bottom:24px}
+    .dot{width:7px;height:7px;border-radius:50%;background:#618198;opacity:.7}
+    .window-top span:last-child{margin-left:auto}
+    .workflow-heading{font-size:18px;line-height:1.4;font-weight:800;letter-spacing:-.025em;margin-bottom:6px}
+    .workflow-sub{color:var(--muted);font-size:12px;margin-bottom:20px}
+    .metric{border:1px solid var(--line);padding:18px;border-radius:14px;background:rgba(11,25,39,.8)}
+    .metric + .metric{margin-top:12px}
+    .metric-value{display:flex;align-items:baseline;gap:10px;font-size:34px;font-weight:800;letter-spacing:-.04em;line-height:1.1;color:var(--accent)}
+    .metric-value .from{font-size:20px;color:var(--dim);text-decoration:line-through;text-decoration-thickness:2px}
+    .metric-value .arrow{font-size:20px;color:var(--muted)}
+    .metric-label{display:block;color:var(--muted);font-size:12px;margin-top:6px}
+    .flow-result{margin-top:20px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:11px}
+    .flow-result strong{color:var(--accent);font-size:12px;display:flex;gap:7px;align-items:center}
+    .quick-strip{border-bottom:1px solid var(--line);background:rgba(17,30,45,.45)}
+    .quick-inner{display:grid;grid-template-columns:repeat(3,1fr);padding:24px 0;gap:28px}
+    .quick-item{display:flex;align-items:center;gap:15px}
+    .quick-item:not(:last-child){border-right:1px solid var(--line)}
+    .quick-ico{display:grid;place-items:center;width:38px;height:38px;border-radius:11px;background:rgba(102,227,211,.075);color:var(--accent);font-size:18px;flex:none}
+    .quick-item b{font-size:13px;display:block;line-height:1.3}
+    .quick-item span{font-size:12px;color:var(--muted);display:block;margin-top:3px}
+    section{padding:105px 0}
+    .section-top{display:flex;justify-content:space-between;align-items:end;gap:28px;margin-bottom:37px}
+    .section-kicker{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:800;margin:0 0 13px}
+    h2{font-size:clamp(31px,3.25vw,45px);letter-spacing:-.046em;line-height:1.16;margin:0;font-weight:800}
+    .section-desc{color:var(--muted);max-width:420px;font-size:14px;margin:0}
+    .filters{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+    .filter{border:1px solid var(--line);background:transparent;color:#9dafc3;padding:9px 16px;border-radius:99px;font-size:12px;font-weight:800;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+    .filter:hover{border-color:var(--line-strong);color:var(--text)}
+    .filter[aria-pressed="true"]{border-color:rgba(102,227,211,.45);background:rgba(102,227,211,.12);color:var(--accent)}
+    .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:19px}
+    .project{display:flex;flex-direction:column;min-height:380px;background:linear-gradient(160deg,#121f30,#101c2b 70%);border:1px solid var(--line);border-radius:var(--radius);padding:25px;position:relative;overflow:hidden;transition:border-color .2s,transform .2s,box-shadow .2s}
+    .project:hover{border-color:rgba(102,227,211,.38);transform:translateY(-4px);box-shadow:0 19px 50px rgba(0,0,0,.2)}
+    .project[hidden]{display:none!important}
+    .project:before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--card-accent,var(--accent)),transparent);opacity:.7}
+    .project-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:31px;gap:12px}
+    .project-icon{display:grid;place-items:center;width:48px;height:48px;border-radius:14px;background:var(--card-bg,rgba(102,227,211,.08));color:var(--card-accent,var(--accent));border:1px solid var(--line)}
+    .project-icon svg{width:23px;height:23px}
+    .category{font-size:10px;color:#8fa9c1;text-transform:uppercase;letter-spacing:.09em;font-weight:800;white-space:nowrap}
+    .project h3{font-size:21px;line-height:1.34;letter-spacing:-.03em;margin:0 0 12px}
+    .project p{color:var(--muted);font-size:13px;line-height:1.75;margin:0 0 21px}
+    .project .result{color:var(--accent);font-size:12px;font-weight:800;margin:-8px 0 18px}
+    .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}
+    .tag{font-size:10px;font-weight:700;border:1px solid var(--line);border-radius:6px;padding:5px 8px;color:#b6c6d9;background:rgba(255,255,255,.02)}
+    .project-button{display:flex;gap:9px;align-items:center;justify-content:space-between;width:100%;padding:18px 0 0;margin-top:19px;border:0;border-top:1px solid var(--line);background:transparent;color:var(--accent);font-size:12px;font-weight:800;text-align:left;cursor:pointer}
+    .project-button span:last-child{font-size:17px;transition:transform .2s}
+    .project-button:hover span:last-child{transform:translateX(4px)}
+    .privacy-note{display:flex;gap:10px;align-items:center;margin-top:26px;color:var(--dim);font-size:12px}
+    .privacy-note svg{color:var(--accent);flex:none}
+    .about-section{background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:95px}
+    .about-grid p{color:var(--muted);font-size:15px;line-height:1.9}
+    .about-grid .quote{margin:23px 0 0;padding-left:19px;border-left:2px solid var(--accent);font-size:17px;color:#e2edf8;font-weight:650;line-height:1.65}
+    .xp{border:1px solid rgba(102,227,211,.25);background:rgba(102,227,211,.05);border-radius:14px;padding:18px 20px;margin:26px 0 0}
+    .xp b{display:block;font-size:15px}
+    .xp span{display:block;color:var(--muted);font-size:13px;margin-top:3px}
+    .stack-list{display:grid;grid-template-columns:1fr;gap:11px}
+    .stack-row{border:1px solid var(--line);background:rgba(255,255,255,.015);padding:16px 18px;border-radius:12px}
+    .stack-row b{display:block;font-size:12px;color:var(--accent);margin-bottom:5px}
+    .stack-row span{font-size:13px;color:var(--muted)}
+    .contact-section{text-align:center;padding:110px 0 103px}
+    .contact-section h2{max-width:740px;margin-inline:auto}
+    .contact-section p{color:var(--muted);font-size:15px;max-width:570px;margin:20px auto 29px}
+    .contact-note{font-size:11px!important;margin-top:14px!important}
+    footer{border-top:1px solid var(--line);padding:24px 0 32px}
+    .footer-inner{display:flex;justify-content:space-between;gap:22px;align-items:center;color:var(--dim);font-size:11px}
+    .footer-inner a{color:#b1ceda}
+    dialog{background:#111d2c;border:1px solid rgba(157,193,213,.27);color:var(--text);border-radius:22px;max-width:740px;width:min(calc(100% - 32px),740px);max-height:min(86vh,850px);padding:0;box-shadow:0 30px 110px rgba(0,0,0,.7)}
+    dialog::backdrop{background:rgba(3,9,16,.79);backdrop-filter:blur(7px)}
+    .dialog-content{padding:34px 36px 35px;overflow-y:auto;max-height:86vh}
+    .dialog-head{display:flex;justify-content:space-between;gap:20px;align-items:start}
+    .dialog-close{display:grid;place-items:center;border:1px solid var(--line-strong);background:transparent;color:var(--text);width:34px;height:34px;border-radius:10px;cursor:pointer;flex:none;font-size:23px;line-height:1}
+    .dialog-close:hover{background:var(--surface-2)}
+    .dialog-title{font-size:30px;line-height:1.2;letter-spacing:-.045em;margin:8px 0 17px}
+    .dialog-summary{font-size:14px;color:#b3c7d9;line-height:1.8;margin:0 0 22px}
+    .detail-block{margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
+    .detail-block h4{font-size:12px;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;margin:0 0 7px}
+    .detail-block p{font-size:13px;color:var(--muted);margin:0;line-height:1.75}
+    .detail-tech{display:flex;gap:7px;flex-wrap:wrap;margin-top:23px}
+    @media (max-width:1050px){
+      .hero-inner{gap:34px;grid-template-columns:minmax(0,1fr) minmax(310px,.8fr)}
+      .hero{padding:80px 0}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.about-grid{gap:42px}
+    }
+    @media (max-width:760px){
+      .container{width:min(calc(100% - 32px),var(--container))}
+      .nav-wrap{min-height:68px}.brand-mark{width:37px;height:37px}.brand strong{font-size:12px}.brand small{font-size:9px}
+      nav{gap:14px}nav a{display:none}.nav-cta{font-size:11px;padding:9px 11px}
+      .hero{padding:65px 0 69px}.hero-inner{grid-template-columns:1fr;gap:40px}.hero h1{font-size:clamp(34px,9vw,56px)}.lead{font-size:15px}
+      .workflow-card{max-width:510px;width:100%;margin:auto}.quick-inner{grid-template-columns:1fr;gap:14px;padding:25px 0}.quick-item:not(:last-child){border-right:0;border-bottom:1px solid var(--line);padding-bottom:14px}
+      section{padding:74px 0}.section-top{display:block}.section-desc{margin-top:14px}.grid{grid-template-columns:1fr}.project{min-height:unset}.project-top{margin-bottom:24px}
+      .about-grid{grid-template-columns:1fr;gap:28px}.contact-section{padding:77px 0}.footer-inner{display:block}.footer-inner span{display:block;margin:4px 0}
+      .dialog-content{padding:24px}.dialog-title{font-size:25px}
+    }
+    @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
+  </style>
+</head>
+<body>
+  <a href="#conteudo" class="skip">Ir para o conteúdo</a>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="#inicio" aria-label="Bruno Machado, voltar ao início">
+        <span class="brand-mark">BM</span>
+        <span><strong>Bruno Machado</strong><small>Engenharia & tecnologia</small></span>
+      </a>
+      <nav aria-label="Navegação principal">
+        <a href="#projetos">Projetos</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#contato">Contato</a>
+        <a class="nav-cta" href="mailto:brunomachadofurnopires@gmail.com?subject=Contato%20pelo%20portf%C3%B3lio">Vamos conversar ↗</a>
+      </nav>
+    </div>
+  </header>
+  <main id="conteudo">
+    <section class="hero" id="inicio" aria-labelledby="hero-heading">
+      <div class="ambient"></div>
+      <div class="container hero-inner">
+        <div>
+          <span class="eyebrow">Automação • Dados • Engenharia</span>
+          <h1 id="hero-heading">Automação e dados para a <span class="gradient-text">operação do setor elétrico.</span></h1>
+          <p class="lead">Sou Bruno Machado, estudante de Engenharia Elétrica no IFES e <strong>estagiário de Operação e Manutenção na AXIA Energia (Eletrobras)</strong>. Desenvolvo aplicativos, integrações e automações que tiram trabalho manual da rotina de inspeção e manutenção de subestações.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#projetos">Conheça meus projetos <span aria-hidden="true">↗</span></a>
+            <a class="btn btn-secondary" href="#sobre">Minha trajetória <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+        <div class="workflow-card">
+          <div class="window-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span>RESULTADOS NO ESTÁGIO</span></div>
+          <div class="workflow-heading">Digitalização de inspeções de subestações</div>
+          <div class="workflow-sub">AXIA Energia (Eletrobras) · Operação e Manutenção</div>
+          <div class="metric">
+            <div class="metric-value">15+</div>
+            <span class="metric-label">inspeções levadas do papel para aplicativos digitais</span>
+          </div>
+          <div class="metric">
+            <div class="metric-value"><span class="from">~2 h</span><span class="arrow" aria-hidden="true">→</span>~10 min</div>
+            <span class="metric-label">para gerar um relatório de inspeção, com a automação</span>
+          </div>
+          <div class="flow-result"><span>Power Apps · Power Automate · SharePoint</span><strong><span aria-hidden="true">●</span> Em uso</strong></div>
+        </div>
+      </div>
+    </section>
+    <div class="quick-strip" aria-label="Áreas de atuação">
+      <div class="container quick-inner">
+        <div class="quick-item"><div class="quick-ico" aria-hidden="true">↗</div><div><b>Automação de ponta a ponta</b><span>Aplicativos, fluxos e integração de sistemas</span></div></div>
+        <div class="quick-item"><div class="quick-ico" aria-hidden="true">◈</div><div><b>Dados que orientam decisões</b><span>Tratamento, análise e indicadores</span></div></div>
+        <div class="quick-item"><div class="quick-ico" aria-hidden="true">⌁</div><div><b>Base sólida em engenharia</b><span>Controle, sinais e experimentação</span></div></div>
+      </div>
+    </div>
+    <section id="projetos" aria-labelledby="project-heading">
+      <div class="container">
+        <div class="section-top">
+          <div><p class="section-kicker">Trabalhos selecionados</p><h2 id="project-heading">Projetos e entregas<span style="color:var(--accent)">.</span></h2></div>
+          <p class="section-desc">Projetos do estágio, ferramentas em Python, pesquisa acadêmica e engenharia de controle. Clique em um projeto para ver o desafio, o que eu fiz e o resultado.</p>
+        </div>
+        <div class="filters" role="group" aria-label="Filtrar projetos por área">
+          <button class="filter" data-filter="todos" aria-pressed="true" type="button">Todos <span id="all-count"></span></button>
+          <button class="filter" data-filter="automacao" aria-pressed="false" type="button">Automação & IA</button>
+          <button class="filter" data-filter="dados" aria-pressed="false" type="button">Dados & pesquisa</button>
+          <button class="filter" data-filter="engenharia" aria-pressed="false" type="button">Engenharia</button>
+        </div>
+        <div class="grid" id="projects-grid">
+          <article class="project" data-category="automacao" style="--card-accent:#c7a4ff;--card-bg:rgba(199,164,255,.08)">
+            <div class="project-top"><div class="project-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="7" width="16" height="12" rx="3"/><path d="M12 7V3m-3 9h.01M15 12h.01M9 16h6"/></svg></div><span class="category">IA generativa</span></div>
+            <h3>Agente de IA para alinhamento de segurança</h3>
+            <p>Criei um agente no Microsoft Copilot que lê os documentos de segurança da atividade (APR e PEX) e gera a apresentação para a equipe e o termo de ciência para assinatura.</p>
+            <div class="tags"><span class="tag">Microsoft Copilot</span><span class="tag">IA generativa</span><span class="tag">Documentos</span></div>
+            <button type="button" class="project-button" data-project="agente"><span>Ver estudo de caso</span><span aria-hidden="true">↗</span></button>
+          </article>
+          <article class="project" data-category="automacao" style="--card-accent:#66e3d3;--card-bg:rgba(102,227,211,.08)">
+            <div class="project-top"><div class="project-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8m-8 4h5"/></svg></div><span class="category">Automação corporativa</span></div>
+            <h3>Digitalização de inspeções de subestações</h3>
+            <p>Desenvolvi aplicativos que registram cada item da inspeção, fotos de evidência e não conformidades, e geram o relatório em PDF automaticamente.</p>
+            <p class="result">15+ inspeções digitalizadas · relatório de ~2 h para ~10 min</p>
+            <div class="tags"><span class="tag">Power Apps</span><span class="tag">Power Automate</span><span class="tag">SharePoint</span></div>
+            <button type="button" class="project-button" data-project="inspecoes"><span>Ver estudo de caso</span><span aria-hidden="true">↗</span></button>
+          </article>
+          <article class="project" data-category="automacao" style="--card-accent:#7cb6ff;--card-bg:rgba(124,182,255,.08)">
+            <div class="project-top"><div class="project-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="8" width="7" height="8" rx="1"/><rect x="15" y="3" width="7" height="6" rx="1"/><rect x="15" y="15" width="7" height="6" rx="1"/><path d="M9 12h3a3 3 0 0 0 3-3M12 12a3 3 0 0 1 3 3"/></svg></div><span class="category">Integração de sistemas</span></div>
+            <h3>Integração entre formulários e sistemas</h3>
+            <p>Conectei formulários digitais a rotinas automáticas com Apps Script, APIs, webhooks e Power Automate, eliminando a transcrição manual entre ferramentas.</p>
+            <div class="tags"><span class="tag">Apps Script</span><span class="tag">APIs REST</span><span class="tag">Webhooks</span><span class="tag">Power Automate</span></div>
+            <button type="button" class="project-button" data-project="integracoes"><span>Ver estudo de caso</span><span aria-hidden="true">↗</span></button>
+          </article>
+          <article class="project" data-category="dados" style="--card-accent:#f1b87e;--card-bg:rgba(241,184,126,.08)">
+            <div class="project-top"><div class="project-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18M7 16v-5m5 5V7m5 9V5"/></svg></div><span class="category">Business intelligence</span></div>
+            <h3>Indicadores de manutenção</h3>
+            <p>Painéis no Power BI para acompanhar parâmetros de equipamentos por fase, histórico de medições e indicadores de manutenção.</p>
+            <div class="tags"><span class="tag">Power BI</span><span class="tag">DAX</span><span class="tag">Power Query</span></div>
+            <button type="button" class="project-button" data-project="dashboards"><span>Ver estudo de caso</span><span aria-hidden="true">↗</span></button>
+          </article>
+          <article class="project" data-category="automacao" style="--card-accent:#c7a4ff;--card-bg:rgba(199,164,255,.08)">
+            <div class="project-top"><div class="project-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="m7 9 3 3-3 3m6 0h4"/></svg></div><span class="category">Python & automação web</span></div>
+            <h3>Preenchimento automatizado de formulários</h3>
+            <p>Automação em Python que lê planilhas e preenche formulários web sozinha, com espera de elementos, timeouts e tratamento de erros.</p>
+            <div class="tags"><span class="tag">Python</span><span class="tag">Playwright</span><span class="tag">Pandas</span></div>
+            <button type="button" class="project-button" data-project="forms"><span>Ver estudo de caso</span><span aria-hidden="true">↗</span></button>
+          </article>
+          <article class="project" data-category="automacao" style="--card-accent:#66e3d3;--card-bg:rgba(102,227,211,.08)">
+            <div class="project-top"><div class="project-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2h8l4 4v16H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="M14 2v5h5M8 12h8M8 16h8"/></svg></div><span class="category">Processamento documental</span></div>
+            <h3>Organização de relatórios de linhas de transmissão</h3>
+            <p>Ferramenta em Python que lê relatórios em PDF, extrai as fotos, identifica linha e torre, pareia o antes e depois de cada serviço e exporta tudo para Excel.</p>
+            <div class="tags"><span class="tag">Python</span><span class="tag">PDF</span><span class="tag">Regex</span><span class="tag">Excel</span></div>
+            <button type="button" class="project-button" data-project="documentos"><span>Ver estudo de caso</span><span aria-hidden="true">↗</span></button>
+          </article>
+          <article class="project" data-category="dados engenharia" style="--card-accent:#7cb6ff;--card-bg:rgba(124,182,255,.08)">
+            <div class="project-top"><div class="project-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12c2-9 4 9 6 0s4-9 6 0 4 9 8 0"/></svg></div><span class="category">Pesquisa acadêmica</span></div>
+            <h3>Análise de sinais EEG / SSVEP</h3>
+            <p>Iniciação científica no IFES: aquisição de EEG, filtragem digital, FFT e relação sinal-ruído para medir a resposta do cérebro a estímulos visuais.</p>
+            <div class="tags"><span class="tag">MATLAB</span><span class="tag">Python</span><span class="tag">FFT</span><span class="tag">SNR</span></div>
+            <button type="button" class="project-button" data-project="eeg"><span>Ver estudo de caso</span><span aria-hidden="true">↗</span></button>
+          </article>
+          <article class="project" data-category="engenharia" style="--card-accent:#f1b87e;--card-bg:rgba(241,184,126,.08)">
+            <div class="project-top"><div class="project-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="19" r="3"/><circle cx="18" cy="19" r="3"/><path d="M6 16 10 3h4l4 13M9 10h6"/></svg></div><span class="category">Controle & embarcados</span></div>
+            <h3>Robô autoequilibrante</h3>
+            <p>Modelei o robô como um pêndulo invertido, projetei os controladores e implementei o controle digital em Arduino com sensor inercial e motores de passo.</p>
+            <div class="tags"><span class="tag">Arduino</span><span class="tag">PID</span><span class="tag">Espaço de estados</span><span class="tag">MPU6050</span></div>
+            <button type="button" class="project-button" data-project="robo"><span>Ver estudo de caso</span><span aria-hidden="true">↗</span></button>
+          </article>
+        </div>
+        <p class="privacy-note">
+          <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+          Projetos profissionais descritos em alto nível, sem código, dados ou telas internas da empresa.
+        </p>
+      </div>
+    </section>
+    <section id="sobre" class="about-section" aria-labelledby="about-heading">
+      <div class="container about-grid">
+        <div>
+          <p class="section-kicker">Quem sou</p>
+          <h2 id="about-heading">Engenharia com mentalidade de produto<span style="color:var(--accent)">.</span></h2>
+          <p>Sou estudante de Engenharia Elétrica no Instituto Federal do Espírito Santo (IFES), com previsão de formatura em julho de 2028. No estágio, uno a engenharia do dia a dia de subestações ao desenvolvimento de automações e ferramentas que a equipe usa de verdade.</p>
+          <p>Meu interesse está em IA aplicada, integração de sistemas e engenharia de controle. Hoje estudo redes neurais e PyTorch, com o objetivo de aplicar aprendizado por reforço a sistemas físicos.</p>
+          <div class="xp">
+            <b>Estagiário de Operação e Manutenção</b>
+            <span>AXIA Energia (Eletrobras) · Transmissão, regional ES/MG · 2026 – atual</span>
+          </div>
+          <div class="quote">Gosto de compreender o problema por trás do processo, construir algo utilizável e conseguir explicar por que a solução funciona.</div>
+        </div>
+        <div>
+          <p class="section-kicker">Ferramentas e conhecimentos</p>
+          <div class="stack-list">
+            <div class="stack-row"><b>Automação e aplicações</b><span>Power Apps · Power Automate · SharePoint · Google Apps Script · APIs REST · Webhooks</span></div>
+            <div class="stack-row"><b>Programação e processamento</b><span>Python · Pandas · Playwright · MATLAB · C/C++ · VBA · Excel</span></div>
+            <div class="stack-row"><b>Dados e visualização</b><span>Power BI · DAX · Power Query · Análise de sinais · SQL (básico)</span></div>
+            <div class="stack-row"><b>IA generativa</b><span>Agente no Microsoft Copilot · Engenharia de prompts · LLMs em fluxos de automação · Em estudo: redes neurais e PyTorch</span></div>
+            <div class="stack-row"><b>Formação e idiomas</b><span>Engenharia Elétrica — IFES · Português nativo · Inglês avançado</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="contato" class="contact-section" aria-labelledby="contact-heading">
+      <div class="container">
+        <p class="section-kicker">Contato</p>
+        <h2 id="contact-heading">Vamos conversar sobre problemas que valem a pena resolver?</h2>
+        <p>Tenho interesse em estágios em IA aplicada, automação, dados e desenvolvimento de soluções para a indústria.</p>
+        <a class="btn btn-primary" href="mailto:brunomachadofurnopires@gmail.com?subject=Contato%20pelo%20portf%C3%B3lio">Enviar um e-mail <span aria-hidden="true">↗</span></a>
+        <p class="contact-note">brunomachadofurnopires@gmail.com</p>
+      </div>
+    </section>
+  </main>
+  <footer><div class="container footer-inner"><span>© <span id="year">2026</span> Bruno Machado Furno Pires</span><span><a href="#inicio">Voltar ao topo ↑</a></span></div></footer>
+
+  <dialog id="project-dialog" aria-labelledby="dialog-title">
+    <div class="dialog-content">
+      <div class="dialog-head"><span class="section-kicker" id="dialog-category">ESTUDO DE CASO</span><button type="button" class="dialog-close" id="dialog-close" aria-label="Fechar detalhes">×</button></div>
+      <h3 class="dialog-title" id="dialog-title"></h3>
+      <p class="dialog-summary" id="dialog-summary"></p>
+      <div class="detail-block"><h4>Desafio</h4><p id="dialog-challenge"></p></div>
+      <div class="detail-block"><h4>O que eu fiz</h4><p id="dialog-approach"></p></div>
+      <div class="detail-block"><h4>Resultado</h4><p id="dialog-outcome"></p></div>
+      <div class="detail-tech" id="dialog-tech" aria-label="Tecnologias do projeto"></div>
+    </div>
+  </dialog>
+  <script>
+    const studies = {
+      agente: {
+        category: 'IA GENERATIVA · AXIA ENERGIA', title: 'Agente de IA para alinhamento de segurança',
+        summary: 'Agente criado no Microsoft Copilot, dentro do ambiente corporativo, para preparar o alinhamento de segurança da equipe antes das atividades de campo.',
+        challenge: 'Antes de cada atividade, a equipe precisa conhecer os riscos e as medidas de controle previstos nos documentos de segurança (APR e PEX), e esse alinhamento precisa ficar registrado. Montar a apresentação e o termo de ciência à mão, a partir dos documentos, toma tempo.',
+        approach: 'Configurei um agente no Microsoft Copilot que recebe os dois documentos, extrai o panorama de riscos e medidas e gera dois produtos: uma apresentação para conduzir a conversa com a equipe e um documento assinável confirmando que todo o panorama foi apresentado.',
+        outcome: 'A preparação do alinhamento de segurança passa a sair direto dos documentos da atividade, com apresentação e termo de ciência gerados de forma padronizada.',
+        tech: ['Microsoft Copilot','IA generativa','Engenharia de prompts','Processamento de documentos']
+      },
+      inspecoes: {
+        category: 'AUTOMAÇÃO CORPORATIVA · AXIA ENERGIA', title: 'Digitalização de inspeções de subestações',
+        summary: 'Projeto do estágio em Operação e Manutenção: tirar as inspeções de equipamentos de subestações do papel e automatizar a geração dos relatórios.',
+        challenge: 'As inspeções eram registradas em papel e os relatórios montados à mão. Cada inspeção tem dezenas ou centenas de campos, equipamentos trifásicos avaliados fase a fase e fotos de evidência, o que tornava o processo lento e difícil de padronizar.',
+        approach: 'Comecei com protótipos em AppSheet e migrei para Power Apps e Power Automate. Separei os dados gerais da inspeção dos itens avaliados, o que deixou a estrutura escalável e pronta para análise. Os aplicativos registram conformidades e não conformidades, observações técnicas, fotos e assinatura, e um fluxo gera o relatório em PDF automaticamente.',
+        outcome: 'Mais de 15 inspeções digitalizadas. O relatório, que levava cerca de 2 horas para ser montado, passou a ser gerado em cerca de 10 minutos.',
+        tech: ['Power Apps','Power Automate','SharePoint','AppSheet','Modelagem de dados']
+      },
+      integracoes: {
+        category: 'INTEGRAÇÃO DE SISTEMAS', title: 'Integração entre formulários e sistemas',
+        summary: 'Automação de registros de inspeção conectando formulários digitais às ferramentas corporativas.',
+        challenge: 'As informações chegavam por formulários e precisavam ser copiadas à mão para outras ferramentas, o que tomava tempo e abria espaço para erro.',
+        approach: 'Integrei Google Forms, Google Apps Script e Power Automate por meio de APIs REST e webhooks, cuidando da estrutura dos dados em cada etapa e depurando o comportamento do fluxo.',
+        outcome: 'Os registros passaram a seguir automaticamente para o destino certo, sem transcrição manual. Como próximo passo, desenhei uma evolução com um modelo de linguagem para classificar a gravidade dos registros e gerar alertas; essa parte ainda está em proposta.',
+        tech: ['Google Forms','Apps Script','Power Automate','APIs REST','Webhooks']
+      },
+      dashboards: {
+        category: 'BUSINESS INTELLIGENCE', title: 'Indicadores de manutenção',
+        summary: 'Painéis que transformam registros operacionais e medições de equipamentos em informação para decisão.',
+        challenge: 'Medições e registros de manutenção ficavam espalhados em planilhas, o que dificultava enxergar tendências por equipamento e por fase e priorizar atividades.',
+        approach: 'Tratei e relacionei as tabelas com Power Query, criei medidas em DAX e montei visualizações de parâmetros de equipamentos por fase, histórico de medições, indicadores de desempenho e análises de CAPEX e OPEX.',
+        outcome: 'Painéis que concentram em um só lugar o que antes exigia cruzar várias planilhas, facilitando a identificação de prioridades de manutenção.',
+        tech: ['Power BI','DAX','Power Query','Excel']
+      },
+      forms: {
+        category: 'PYTHON & AUTOMAÇÃO WEB', title: 'Preenchimento automatizado de formulários',
+        summary: 'Automação de navegador que transforma linhas de uma planilha em formulários preenchidos.',
+        challenge: 'Transcrever repetidamente dados que já estavam em planilhas para formulários web é lento e gera inconsistências.',
+        approach: 'Usei pandas para ler e filtrar os registros por identificador e Playwright para preencher campos, escolher opções e acompanhar o estado da página, tratando sincronização, timeouts e exceções.',
+        outcome: 'Uma rotina que preenche os formulários sozinha a partir da planilha, com tratamento de erros para não parar no meio do lote.',
+        tech: ['Python','Playwright','Pandas','Excel']
+      },
+      documentos: {
+        category: 'PROCESSAMENTO DOCUMENTAL', title: 'Organização de relatórios de linhas de transmissão',
+        summary: 'Ferramenta em Python para organizar as evidências de serviços em linhas de transmissão.',
+        challenge: 'Os relatórios de serviço chegam em PDFs extensos, com fotos de antes e depois de cada torre misturadas ao texto, e organizá-los à mão era demorado.',
+        approach: 'Escrevi um utilitário em Python que lê os PDFs, extrai e recorta as imagens, identifica linha e torre com expressões regulares, agrupa os registros por tipo de serviço e pareia as fotos de antes e depois.',
+        outcome: 'As evidências saem organizadas em uma planilha Excel, prontas para consulta, em vez de serem separadas manualmente.',
+        tech: ['Python','Pandas','PDF','Expressões regulares','Excel']
+      },
+      eeg: {
+        category: 'PESQUISA ACADÊMICA · IFES', title: 'Análise de sinais EEG / SSVEP',
+        summary: 'Iniciação científica sobre potenciais visualmente evocados em regime permanente (SSVEP), com aplicação em interfaces cérebro-computador.',
+        challenge: 'O sinal de EEG é fraco e ruidoso. Detectar a resposta do cérebro a um estímulo visual que pisca numa frequência fixa exige aquisição cuidadosa e análise no domínio da frequência.',
+        approach: 'Trabalhei na aquisição com o equipamento BrainNet e no planejamento dos experimentos. Na análise, em MATLAB e Python, apliquei filtros passa-faixa e notch, FFT, análise de harmônicas e cálculo de relação sinal-ruído por canal, comparando frequências de estímulo e janelas de análise.',
+        outcome: 'Experiência real de pesquisa: protocolo experimental, processamento de sinais e avaliação quantitativa dos resultados.',
+        tech: ['MATLAB','Python','EEG/SSVEP','FFT','Filtragem digital','SNR']
+      },
+      robo: {
+        category: 'CONTROLE & EMBARCADOS', title: 'Robô autoequilibrante',
+        summary: 'Projeto acadêmico de um robô de duas rodas que se equilibra como um pêndulo invertido.',
+        challenge: 'O pêndulo invertido é instável por natureza: sem controle, o robô cai. Manter o equilíbrio exige medir a inclinação com rapidez e corrigir os motores em tempo real.',
+        approach: 'Modelei a dinâmica do sistema, linearizei em torno do equilíbrio e obtive a função de transferência e a representação em espaço de estados. Projetei controladores PID e por avanço de fase e implementei o controle digital em Arduino Uno, com sensor MPU6050, motores de passo NEMA 17 com drivers A4988 e período de amostragem de cerca de 2 ms.',
+        outcome: 'Um projeto que conecta teoria de controle a hardware real, da modelagem à implementação. Próximo passo: usar a plataforma para estudar controle ótimo e aprendizado por reforço.',
+        tech: ['Arduino','C/C++','PID','Espaço de estados','MPU6050','MATLAB']
+      }
+    };
+    const filters = [...document.querySelectorAll('.filter')];
+    const cards = [...document.querySelectorAll('.project')];
+    const isDraft = card => card.dataset.draft === 'true';
+    document.getElementById('all-count').textContent = `(${cards.filter(card => !isDraft(card)).length})`;
+    filters.forEach(button => button.addEventListener('click', () => {
+      const category = button.dataset.filter;
+      filters.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+      cards.forEach(card => { card.hidden = isDraft(card) || (category !== 'todos' && !card.dataset.category.split(' ').includes(category)); });
+    }));
+    const dialog = document.getElementById('project-dialog');
+    document.querySelectorAll('[data-project]').forEach(button => button.addEventListener('click', () => {
+      const study = studies[button.dataset.project];
+      if (!study) return;
+      ['category','title','summary','challenge','approach','outcome'].forEach(field => document.getElementById(`dialog-${field}`).textContent = study[field]);
+      const tech = document.getElementById('dialog-tech');
+      tech.replaceChildren(...study.tech.map(label => { const span = document.createElement('span'); span.className = 'tag'; span.textContent = label; return span; }));
+      if (typeof dialog.showModal === 'function') dialog.showModal();
+    }));
+    document.getElementById('dialog-close').addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
+    document.getElementById('year').textContent = String(new Date().getFullYear());
+  </script>
+</body>
+</html>
